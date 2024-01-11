@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Portfolio Website</title>
+
+  <!-- adding favicon -->
+  <link rel="short cut icon" href="assets/favicon.png" type="image/x-icon">
+  
+  <!-- adding custom stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/mquery.css">
+  <!-- adding line-icon -->
+  <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+  <!-- website header -->
+  <header>
+    <div class="container">
+      <a href="#" class="logo"><span>C</span>reatify.</a>
+      
+      <div id="hamb" class="hamb">
+        <span id="top"></span>
+        <span id="mid"></span>
+        <span id="bottom"></span>
+      </div>
+    </div>
+  </header>
+  <!-- responsive navigation -->
+  <nav class="nav">
+    <ul id="nav__menu" class="nav__menu">
+      <li class="nav__list">
+        <a href="#home" class="nav__link">Home</a>
+      </li>
+      <li class="nav__list">
+        <a href="#about" class="nav__link">About</a>
+      </li>
+      <li class="nav__list">
+        <a href="#skills" class="nav__link">Skills</a>
+      </li>
+      <li class="nav__list">
+        <a href="#portfolio" class="nav__link">Porfolio</a>
+      </li>
+      <li class="nav__list">
+        <a href="#testimonials" class="nav__link">Testimonials</a>
+      </li>
+      <li class="nav__list">
+        <a href="#awards" class="nav__link">Awards</a>
+      </li>
+      <li class="nav__list">
+        <a href="#contact" class="nav__link">Contact</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- main ----------//---------- -->
+  <main>
+    <!-- website hero section ----------//---------- -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero__description">
+          <span id="hero__top"> 👋 Hi! everyone</span>
+          <h1 class="hero__title">Amauri Gomes <br> Front-end Developer</h1>
+          <p class="hero__text"> Eu falo isso, isso, isso e isso.</p>
+          <div class="action">
+            <a href="#" class="btn btn-round">Get in touch 
+            <i class="lni lni-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <img src="assets/img/hero_image.png" alt="" class="hero__img">
+      </div>
+    </section>
+    <!-- website about section markup ----------//---------- -->
+    <article id="about" class="about">
+      <div class="container">
+        <div class="group__text">
+          <p class="group__top">
+            <img src="assets/img/line.svg" alt=""> Who am I
+          </p>
+
+          <h2 class="group__title">
+            Graduando em ciêcia da computação na UFCG - Paraíba - 🦜
+          </h2>
+        </div>
+        <div class="about__right">
+          <p class="about__right-text">
+            lorem impsum tededeu tedeu paroco poco doco loco foco farante periscopio Dihidrogenio monosucrelear forisgompode de acum seco estrucionado de estembolinha.
+          </p>
+          <p class="about_right-text-bottom">
+            balaco baco porem lupidus veloz carafitiades forensis faracatangotango. Firigardo estremoncito caronte passum seca figurante estrepandoriotorto esquisofrenico estrepilitado peçonhento. 
+          </p>
+          <a href="#" class="btn"> About me</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- skill section markup ----------//---------- -->
+    <section id="skills" class="skills">
+      <div class="container">
+        <div class="group__text">
+          <p class="group__top">
+            <img src="assets/img/line.svg" alt=""> My Skills
+          </p>
+          <h2 class="group__title">
+            Skills that i have so far, to provide my clients the best products
+          </h2>
+        </div>
+
+        <div class="skills__right">
+          <p class="skills__text">
+            balaco baco porem lupidus veloz carafitiades forensis faracatangotango. Firigardo estremoncito caronte passum seca figurante estrepandoriotorto esquisofrenico estrepilitado peçonhento. 
+          </p>
+          <ul class="skills__group">
+            <li>
+              <p>Design</p>
+              <span class="bar">
+                <span class="design"></span>
+              </span>
+            </li>
+            <li>
+              <p>Art Direction</p>
+              <span class="bar">
+                <span class="art"></span>
+              </span>
+            </li>
+            <li>
+              <p>Branding</p>
+              <span class="bar">
+                <span class="branding"></span>
+              </span>
+            </li>
+            <li>
+              <p>Website Design</p>
+              <span class="bar">
+                <span class="web"></span>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- portfolio section markup ----------//---------- -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+        <div class="group__text">
+          <p class="group__top">
+            <img src="assets/img/line.svg" alt="">
+            Portfolio
+          </p>
+
+          <h2 class="group__title">
+            Latest Works
+          </h2>
+        </div>
+
+        <div class="portfolio__filter">
+          <ul class="portfolio__filter-nav">
+            <li data-filter="*">All</li>
+            <li data-filter=".web">Web</li>
+            <li data-filter=".branding">Branding</li>
+            <li data-filter=".magazines">Magazines</li>
+            <li data-filter=".package">Package</li>
+          </ul>
+        </div>
+
+        <div class="portfolio__gallery">
+          <a href="https://www.buymeacoffee.com/codermj/extras" data-order="1" class="mix item branding">
+            <img src="assets/img/portfolio/portfolio-1.png" alt="">
+          </a>
+          <a href="https://www.buymeacoffee.com/codermj/extras" data-order="2" class="mix item web">
+            <img src="assets/img/portfolio/portfolio-2.png" alt="">
+          </a>
+          <a href="https://www.buymeacoffee.com/codermj/extras" data-order="3" class="mix item magazines">
+            <img src="assets/img/portfolio/portfolio-3.png" alt="">
+          </a>
+          <a href="https://www.buymeacoffee.com/codermj/extras" data-order="4" class="mix item package">
+            <img src="assets/img/portfolio/portfolio-4.png" alt="">
+          </a>
+          <a href="https://www.buymeacoffee.com/codermj/extras" data-order="5" class="mix item web">
+            <img src="assets/img/portfolio/portfolio-5.png" alt="">
+          </a>
+          <a href="https://www.buymeacoffee.com/codermj/extras" data-order="6" class="mix item web">
+            <img src="assets/img/portfolio/portfolio-6.png" alt="">
+          </a>
+          <a href="https://www.buymeacoffee.com/codermj/extras" data-order="7" class="mix item branding">
+            <img src="assets/img/portfolio/portfolio-7.png" alt="">
+          </a>
+          <a href="https://www.buymeacoffee.com/codermj/extras" data-order="8" class="mix item package">
+            <img src="assets/img/portfolio/portfolio-8.png" alt="">
+          </a>
+          <a href="https://www.buymeacoffee.com/codermj/extras" data-order="9" class="mix item package">
+            <img src="assets/img/portfolio/portfolio-9.png" alt="">
+          </a>
+        </div>
+
+        <div class="action">
+          <a href="#" class="btn">View all works</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- testimonials section markup ----------//---------- -->
+    <section id="testimonials" class="testimonials">
+      <div class="container">
+        <div class="testimonials__person">
+          <img src="assets/img/testimonials.png" alt="">
+        </div>
+        <div class="testimonials_right">
+          <div class="group__text">
+            <p class="group__top">
+              <img src="assets/img/line.svg" alt="">
+              Testimonials
+            </p>
+          </div>
+
+          <p class="testimonials__text">
+            "balaco baco porem lupidus veloz carafitiades 
+            forensis faracatangotango. Firigardo estremoncito 
+            caronte passum seca figurante estrepandoriotorto 
+            esquisofrenico estrepilitado peçonhento."
+          </p>
+
+          <h4 class="person__name">Lucas Wolfer</h4>
+          <span class="person__position">CEO - raisins</span>
+        </div>
+      </div>
+    </section>
+    <!-- awards section markup ----------//---------- -->
+    <section id="awards" class="awards">
+      <div class="container">
+        <div class="group__text">
+          <p class="group__top">
+            <img src="assets/img/line.svg" alt=""> Awards
+          </p>
+          <h2 class="group__tittle">
+            Awards and Recognitions
+          </h2>
+        </div>
+        <div class="awards__categories">
+          <a href="https://www.inc.com/" target="_blank">
+            <span class="head">Web Designer</span>
+            <span class="desc">Breakthrough designer of the year 2020
+            </span>
+          </a>
+          <a href="https://www.inc.com/" target="_blank">
+            <span class="head">Interior and Product
+            </span>
+            <span class="desc">Lead designer of 2024
+            </span>
+          </a>
+          <a href="https://www.inc.com/" target="_blank">
+            <span class="head">Product Creator
+            </span>
+            <span class="desc">Assistant designer and creator
+            </span>
+          </a>
+          <a href="https://www.inc.com/" target="_blank">
+            <span class="head">Web Development
+            </span>
+            <span class="desc">Year 2022 best developer
+            </span>
+          </a>
+          <a href="https://www.inc.com/" target="_blank">
+            <span class="head">Web Optimization
+            </span>
+            <span class="desc">Best website of the year
+            </span>
+          </a>
+          <a href="https://www.inc.com/" target="_blank">
+            <span class="head">Product Designer</span>
+            <span class="desc">Creator of the year 2021
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- footer section markup ----------//---------- -->
+    <footer id="contact" class="contact">
+      <div class="container">
+        <div class="group__text">
+          <h2 class="group__title">
+            Wanna be starting something?
+          </h2>
+        </div>
+        <p class="contact__text">
+          just feel free to contact if you wanna collaborate with me, or sumply have a conversation.
+        </p>
+        <a href="mailto:amaurineto8@gmail.com" class="mail">Send mail</a>
+
+        <div class="social">
+          <a href="#">
+            <i class="lni lni-twitter-fill"></i>
+            Twitter
+          </a>
+          <a href="#">
+            <i class="lni lni-linkedin-original"></i>
+            Linkedin
+          </a>
+          <a href="#">
+            <i class="lni lni-instagram-fill"></i>
+            Instagram
+          </a>
+          <a href="#">
+            <i class="lni lni-facebook-original"></i>
+            Facebook
+          </a>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- adding mixitup js files for portfolio filtering -->
+  <script src="assets/js/mixitup.min.js"></script>
+  <!-- adding custom JavaScript file -->
+  <script src="assets/js/script.js"></script>
+
+</body>
+
+</html>
