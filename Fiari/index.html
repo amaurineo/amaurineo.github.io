@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fiari — protótipo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#10183A;
+  --ink-2:#1B2552;
+  --surface:#1E2A5C;
+  --surface-2:#26336B;
+  --teal:#3FD3C6;
+  --coral:#FF6B6B;
+  --amber:#FFC247;
+  --violet:#8B7BE8;
+  --paper:#EDF1FF;
+  --paper-dim:#A8B4DE;
+  --line:rgba(168,180,222,.18);
+  color-scheme: dark;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0;
+  background:var(--ink);
+  background-image:
+    radial-gradient(60rem 40rem at 15% -10%, rgba(63,211,198,.16), transparent 60%),
+    radial-gradient(50rem 36rem at 95% 10%, rgba(139,123,232,.18), transparent 62%),
+    radial-gradient(44rem 34rem at 50% 115%, rgba(255,194,71,.10), transparent 60%);
+  color:var(--paper);
+  font-family:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- shell ---------- */
+.wrap{max-width:1080px;margin:0 auto;padding:clamp(20px,5vw,56px) clamp(16px,4vw,32px) 64px}
+header.top{margin-bottom:clamp(28px,5vw,48px)}
+.mark{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.mark svg{flex:none}
+.mark b{font-family:"Baloo 2",cursive;font-size:1.6rem;font-weight:800;letter-spacing:.01em}
+h1{
+  font-family:"Baloo 2",cursive;font-weight:700;
+  font-size:clamp(1.9rem,4.6vw,3.1rem);
+  line-height:1.12;margin:0 0 14px;max-width:18ch;
+}
+.sub{margin:0;max-width:62ch;color:var(--paper-dim);font-size:clamp(1rem,1.5vw,1.12rem)}
+
+/* ---------- stage ---------- */
+.stage{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:start}
+@media (max-width:820px){.stage{grid-template-columns:1fr;justify-items:center}}
+
+.phone{
+  width:320px;max-width:100%;
+  background:#0B1230;
+  border:10px solid #070C22;
+  border-radius:40px;
+  box-shadow:0 30px 70px rgba(5,9,26,.7), 0 0 0 1px rgba(168,180,222,.08) inset;
+  overflow:hidden;position:relative;
+}
+.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:22px;background:#070C22;border-radius:0 0 14px 14px;z-index:5}
+.viewport{height:620px;position:relative;overflow:hidden}
+.screen{position:absolute;inset:0;padding:40px 20px 76px;overflow-y:auto;display:none;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.screen.is-on{display:block}
+
+.eyebrow{font-size:.78rem;color:var(--paper-dim);margin:0 0 4px}
+.scrn-title{font-family:"Baloo 2",cursive;font-weight:700;font-size:1.32rem;line-height:1.2;margin:0 0 16px}
+
+/* ---------- bottom nav ---------- */
+.nav{position:absolute;left:0;right:0;bottom:0;height:64px;display:flex;background:rgba(7,12,34,.94);border-top:1px solid var(--line);z-index:4}
+.nav button{
+  flex:1;background:none;border:0;color:var(--paper-dim);cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  font:600 .62rem/1 "Nunito Sans",sans-serif;padding:0;
+}
+.nav button svg{width:21px;height:21px}
+.nav button[aria-selected="true"]{color:var(--teal)}
+.nav button:focus-visible{outline:2px solid var(--teal);outline-offset:-3px}
+
+/* ---------- onboarding ---------- */
+.prog{height:6px;border-radius:99px;background:rgba(168,180,222,.16);margin-bottom:18px;overflow:hidden}
+.prog i{display:block;height:100%;width:37.5%;background:var(--teal);border-radius:99px}
+.person{display:flex;align-items:center;gap:12px;padding:12px;border-radius:18px;background:var(--surface);margin-bottom:10px}
+.ava{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:"Baloo 2",cursive;font-weight:700;font-size:1rem;color:#0B1230}
+.person b{display:block;font:700 .95rem/1.3 "Nunito Sans",sans-serif}
+.person span{display:block;font-size:.78rem;color:var(--paper-dim)}
+.chips{display:flex;gap:6px;margin-top:8px}
+.chip{
+  border:1px solid var(--line);background:transparent;color:var(--paper-dim);
+  border-radius:99px;padding:5px 11px;font:700 .72rem/1 "Nunito Sans",sans-serif;cursor:pointer;
+}
+.chip[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#0B1230}
+.chip:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.cta{
+  display:block;width:100%;margin-top:18px;padding:14px;border:0;border-radius:18px;
+  background:var(--teal);color:#0B1230;cursor:pointer;
+  font-family:"Baloo 2",cursive;font-weight:700;font-size:1.02rem;
+  box-shadow:0 4px 0 #2AA79C;
+}
+.cta:active{transform:translateY(2px);box-shadow:0 2px 0 #2AA79C}
+.cta.ghost{background:transparent;color:var(--paper-dim);box-shadow:none;border:1px solid var(--line);font-size:.92rem;margin-top:8px}
+
+/* ---------- map ---------- */
+.legend{display:flex;flex-direction:column;gap:7px;margin-top:14px}
+.legend div{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--paper-dim)}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.alert{margin-top:14px;padding:12px 14px;border-radius:16px;background:rgba(255,107,107,.13);border:1px solid rgba(255,107,107,.4)}
+.alert b{display:block;font:700 .86rem/1.35 "Nunito Sans",sans-serif;color:#FFB3B3}
+.alert span{font-size:.78rem;color:var(--paper-dim)}
+
+/* ---------- check-in ---------- */
+.qlabel{font:700 .82rem/1.4 "Nunito Sans",sans-serif;margin:16px 0 8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{
+  border:1px solid var(--line);background:var(--surface);color:var(--paper);
+  border-radius:16px;padding:11px 8px;cursor:pointer;text-align:center;
+  font:600 .8rem/1.25 "Nunito Sans",sans-serif;
+}
+.opt b{display:block;font-size:1.25rem;line-height:1.5;font-weight:400}
+.opt[aria-pressed="true"]{border-color:var(--amber);background:rgba(255,194,71,.16)}
+.opt:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.note{
+  width:100%;margin-top:8px;background:var(--surface);border:1px solid var(--line);
+  border-radius:16px;padding:12px;color:var(--paper);font:400 .84rem/1.5 "Nunito Sans",sans-serif;resize:none;
+}
+.note::placeholder{color:var(--paper-dim)}
+
+/* ---------- padroes ---------- */
+.stat{background:var(--surface);border-radius:20px;padding:15px;margin-bottom:11px}
+.stat h4{font:700 .84rem/1.3 "Nunito Sans",sans-serif;margin:0 0 11px}
+.bar{display:flex;align-items:center;gap:9px;margin-bottom:7px;font-size:.76rem;color:var(--paper-dim)}
+.bar i{display:block;height:9px;border-radius:99px;flex:none}
+.bar em{font-style:normal;width:62px;flex:none;color:var(--paper)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{border-radius:99px;padding:5px 10px;font:700 .72rem/1 "Nunito Sans",sans-serif}
+.big{font-family:"Baloo 2",cursive;font-weight:800;font-size:2.1rem;line-height:1;color:var(--teal)}
+
+/* ---------- caption ---------- */
+.caption{padding-top:8px}
+.caption h2{font-family:"Baloo 2",cursive;font-weight:700;font-size:clamp(1.35rem,2.6vw,1.8rem);margin:0 0 10px}
+.caption p{margin:0 0 14px;max-width:58ch;color:var(--paper-dim)}
+.caption .step{display:none}
+.caption .step.is-on{display:block}
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+.pill{border:1px solid var(--line);border-radius:99px;padding:5px 12px;font-size:.78rem;color:var(--paper-dim)}
+.thread{height:1px;background:var(--line);margin:28px 0 22px;border:0}
+.foot{color:var(--paper-dim);font-size:.86rem;max-width:62ch}
+.foot b{color:var(--paper);font-weight:700}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="mark">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+        <circle cx="17" cy="17" r="4.2" fill="#3FD3C6"/>
+        <circle cx="5" cy="9" r="2.6" fill="#FFC247"/>
+        <circle cx="29" cy="11" r="2.6" fill="#8B7BE8"/>
+        <circle cx="8" cy="27" r="2.6" fill="#FF6B6B"/>
+        <circle cx="27" cy="26" r="2.2" fill="#A8B4DE"/>
+        <g stroke="#3FD3C6" stroke-width="1.4" fill="none" opacity=".75">
+          <path d="M14 15.4 Q9 11 6.4 9.8"/>
+          <path d="M20 15.6 Q25 12.6 27.6 11.6"/>
+          <path d="M14.6 19.4 Q11 23 9 25.6"/>
+          <path d="M20.4 19 Q24 22.6 26 24.6"/>
+        </g>
+      </svg>
+      <b>Fiari</b>
+    </div>
+    <h1>Suas emoções falam das suas relações</h1>
+    <p class="sub">Protótipo das quatro telas principais. Você declara quem importa, registra em poucos toques, e o aplicativo mostra onde a prática se afastou da intenção. Toque na navegação do celular para percorrer as telas.</p>
+  </header>
+
+  <div class="stage">
+
+    <!-- ============ PHONE ============ -->
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="viewport">
+
+        <!-- 1. ONBOARDING -->
+        <section class="screen is-on" id="s1" role="tabpanel" aria-label="Primeiro fio">
+          <p class="eyebrow">Primeiro fio · 3 de 8</p>
+          <h3 class="scrn-title">Quem importa pra você?</h3>
+          <div class="prog"><i></i></div>
+
+          <div class="person">
+            <div class="ava" style="background:#3FD3C6">MC</div>
+            <div>
+              <b>Marina Costa</b>
+              <span>irmã</span>
+              <div class="chips">
+                <button class="chip" aria-pressed="true">Centro</button>
+                <button class="chip" aria-pressed="false">Perto</button>
+                <button class="chip" aria-pressed="false">Ao redor</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="person">
+            <div class="ava" style="background:#FFC247">TR</div>
+            <div>
+              <b>Thiago Reis</b>
+              <span>amigo de infância</span>
+              <div class="chips">
+                <button class="chip" aria-pressed="true">Centro</button>
+                <button class="chip" aria-pressed="false">Perto</button>
+                <button class="chip" aria-pressed="false">Ao redor</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="person">
+            <div class="ava" style="background:#8B7BE8">LA</div>
+            <div>
+              <b>Lucas Almeida</b>
+              <span>trabalho</span>
+              <div class="chips">
+                <button class="chip" aria-pressed="false">Centro</button>
+                <button class="chip" aria-pressed="false">Perto</button>
+                <button class="chip" aria-pressed="true">Ao redor</button>
+              </div>
+            </div>
+          </div>
+
+          <button class="cta">Continuar</button>
+          <button class="cta ghost">Decidir depois</button>
+        </section>
+
+        <!-- 2. MAPA -->
+        <section class="screen" id="s2" role="tabpanel" aria-label="Mapa de vínculos">
+          <p class="eyebrow">Novembro</p>
+          <h3 class="scrn-title">Seu tecido</h3>
+
+          <svg viewBox="0 0 280 260" width="100%" role="img" aria-label="Mapa de vínculos: pessoas ligadas a você por fios, mais perto quanto maior a importância declarada. Dois vínculos sinalizados em coral.">
+            <g stroke="#3FD3C6" fill="none" opacity=".55" stroke-width="1.6">
+              <path d="M140 130 Q118 104 96 86"/>
+              <path d="M140 130 Q168 110 190 96"/>
+              <path d="M140 130 Q124 160 106 182"/>
+              <path d="M140 130 Q166 158 186 176"/>
+              <path d="M140 130 Q104 134 72 130"/>
+              <path d="M140 130 Q196 134 226 140"/>
+              <path d="M140 130 Q146 180 150 218"/>
+            </g>
+            <circle cx="140" cy="130" r="22" fill="#3FD3C6" opacity=".16"/>
+            <circle cx="140" cy="130" r="13" fill="#3FD3C6"/>
+            <text x="140" y="135" text-anchor="middle" font-family="Baloo 2" font-size="11" font-weight="700" fill="#0B1230">eu</text>
+
+            <circle cx="96" cy="86" r="15" fill="#3FD3C6"/>
+            <text x="96" y="91" text-anchor="middle" font-family="Baloo 2" font-size="11" font-weight="700" fill="#0B1230">MC</text>
+
+            <circle cx="190" cy="96" r="16" fill="none" stroke="#FF6B6B" stroke-width="2.5"/>
+            <circle cx="190" cy="96" r="12" fill="#FFC247"/>
+            <text x="190" y="101" text-anchor="middle" font-family="Baloo 2" font-size="10" font-weight="700" fill="#0B1230">TR</text>
+
+            <circle cx="106" cy="182" r="13" fill="#8B7BE8"/>
+            <text x="106" y="187" text-anchor="middle" font-family="Baloo 2" font-size="10" font-weight="700" fill="#0B1230">BS</text>
+
+            <circle cx="186" cy="176" r="12" fill="#A8B4DE"/>
+            <text x="186" y="181" text-anchor="middle" font-family="Baloo 2" font-size="9" font-weight="700" fill="#0B1230">LA</text>
+
+            <circle cx="72" cy="130" r="15" fill="none" stroke="#FF6B6B" stroke-width="2.5"/>
+            <circle cx="72" cy="130" r="11" fill="#3FD3C6"/>
+            <text x="72" y="134" text-anchor="middle" font-family="Baloo 2" font-size="9" font-weight="700" fill="#0B1230">PV</text>
+
+            <circle cx="226" cy="140" r="10" fill="#A8B4DE"/>
+            <circle cx="150" cy="218" r="10" fill="#A8B4DE"/>
+          </svg>
+
+          <div class="legend">
+            <div><span class="dot" style="background:#3FD3C6"></span> Mais perto, mais importante pra você</div>
+            <div><span class="dot" style="background:transparent;box-shadow:0 0 0 2px #FF6B6B"></span> Você declarou centro, mas anda longe</div>
+          </div>
+
+          <div class="alert">
+            <b>Thiago e Paula estão no seu centro</b>
+            <span>Nas últimas quatro semanas você registrou um contato com cada um. Quer escrever pra alguém?</span>
+          </div>
+        </section>
+
+        <!-- 3. CHECK-IN -->
+        <section class="screen" id="s3" role="tabpanel" aria-label="Check-in">
+          <p class="eyebrow">Hoje, 19:40</p>
+          <h3 class="scrn-title">Como foi?</h3>
+
+          <p class="qlabel">Com quem você esteve?</p>
+          <div class="chips" style="flex-wrap:wrap">
+            <button class="chip" aria-pressed="true">Marina</button>
+            <button class="chip" aria-pressed="false">Thiago</button>
+            <button class="chip" aria-pressed="false">Bia</button>
+            <button class="chip" aria-pressed="false">Outra pessoa</button>
+          </div>
+
+          <p class="qlabel">O que rolou?</p>
+          <div class="grid2">
+            <button class="opt" aria-pressed="true"><b>☕</b>Encontro</button>
+            <button class="opt" aria-pressed="false"><b>💬</b>Conversa</button>
+            <button class="opt" aria-pressed="false"><b>📞</b>Ligação</button>
+            <button class="opt" aria-pressed="false"><b>✈️</b>Viagem</button>
+          </div>
+
+          <p class="qlabel">Como você ficou depois?</p>
+          <div class="chips" style="flex-wrap:wrap">
+            <button class="chip" aria-pressed="false">Leve</button>
+            <button class="chip" aria-pressed="true">Acolhido</button>
+            <button class="chip" aria-pressed="false">Cansado</button>
+            <button class="chip" aria-pressed="false">Irritado</button>
+            <button class="chip" aria-pressed="false">Distante</button>
+          </div>
+
+          <textarea class="note" rows="2" placeholder="Quer guardar algo dessa conversa? (opcional)"></textarea>
+          <button class="cta">Salvar check-in</button>
+        </section>
+
+        <!-- 4. PADROES -->
+        <section class="screen" id="s4" role="tabpanel" aria-label="Padrões">
+          <p class="eyebrow">Últimos 30 dias</p>
+          <h3 class="scrn-title">O que se repete</h3>
+
+          <div class="stat">
+            <h4>Contato por vínculo</h4>
+            <div class="bar"><em>Marina</em><i style="width:74%;background:#3FD3C6"></i>11</div>
+            <div class="bar"><em>Lucas</em><i style="width:60%;background:#A8B4DE"></i>9</div>
+            <div class="bar"><em>Bia</em><i style="width:33%;background:#8B7BE8"></i>5</div>
+            <div class="bar"><em>Thiago</em><i style="width:7%;background:#FF6B6B"></i>1</div>
+          </div>
+
+          <div class="stat">
+            <h4>Depois de ver a Marina, você registrou</h4>
+            <div class="tags">
+              <span class="tag" style="background:rgba(63,211,198,.2);color:#8FE9DF">acolhido · 7</span>
+              <span class="tag" style="background:rgba(255,194,71,.2);color:#FFD98A">leve · 3</span>
+              <span class="tag" style="background:rgba(168,180,222,.2);color:#C3CCEC">cansado · 1</span>
+            </div>
+          </div>
+
+          <div class="stat">
+            <h4>Vínculos no centro com contato este mês</h4>
+            <p class="big">3 de 5</p>
+            <p style="margin:6px 0 0;font-size:.79rem;color:var(--paper-dim)">O aplicativo mostra o padrão. A decisão sobre o que fazer é sua.</p>
+          </div>
+        </section>
+
+      </div>
+
+      <nav class="nav" role="tablist" aria-label="Telas do protótipo">
+        <button role="tab" aria-selected="true" data-go="s1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 19.5c.6-3.4 3.3-5.2 6.5-5.2s5.9 1.8 6.5 5.2"/></svg>
+          Vínculos
+        </button>
+        <button role="tab" aria-selected="false" data-go="s2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="2.6"/><circle cx="5" cy="6" r="1.8"/><circle cx="19" cy="7" r="1.8"/><circle cx="7" cy="19" r="1.8"/><path d="M10.2 10.4 6.3 7.3M14 11.2l3.4-2.6M10.8 13.8 8.2 17.4"/></svg>
+          Tecido
+        </button>
+        <button role="tab" aria-selected="false" data-go="s3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5.5v13M5.5 12h13"/></svg>
+          Check-in
+        </button>
+        <button role="tab" aria-selected="false" data-go="s4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19V11M12 19V6M19 19v-5"/></svg>
+          Padrões
+        </button>
+      </nav>
+    </div>
+
+    <!-- ============ CAPTION ============ -->
+    <div class="caption">
+      <div class="step is-on" data-for="s1">
+        <h2>Primeiro fio</h2>
+        <p>Antes de qualquer registro, o usuário diz quem importa. Essa declaração é o critério que orienta o aplicativo inteiro: nada é inferido do histórico de mensagens nem da frequência de contato.</p>
+        <div class="pills"><span class="pill">Épico E1</span><span class="pill">Sem importar contatos sem permissão</span></div>
+      </div>
+      <div class="step" data-for="s2">
+        <h2>Tecido</h2>
+        <p>A distância até você reflete a importância declarada, não a data do último contato. O anel coral aparece quando alguém que você colocou no centro está entre os que menos recebem sua atenção — a divergência entre intenção e prática.</p>
+        <div class="pills"><span class="pill">Épico E2</span><span class="pill">Não sugere cortar nem manter</span></div>
+      </div>
+      <div class="step" data-for="s3">
+        <h2>Check-in</h2>
+        <p>Quem, o que aconteceu, como você ficou. Três toques resolvem, e o campo de texto é opcional — a fricção do diário longo é o que faz as pessoas abandonarem. O registro liga emoção a pessoa, que é o dado que nenhuma outra ferramenta guarda.</p>
+        <div class="pills"><span class="pill">Épico E3</span><span class="pill">Processado no aparelho</span></div>
+      </div>
+      <div class="step" data-for="s4">
+        <h2>Padrões</h2>
+        <p>Frequência por vínculo, estados que se repetem perto de cada pessoa, evolução no tempo. A tela mostra o que foi registrado e o que se repete, sem classificar o usuário nem nomear esquemas psicológicos.</p>
+        <div class="pills"><span class="pill">Épico E7</span><span class="pill">Descritivo, não interpretativo</span></div>
+      </div>
+
+      <hr class="thread">
+      <p class="foot"><b>Protótipo de interface.</b> Telas estáticas para validação de conceito, sem dados reais. O Fiari atua como instrumento de registro e letramento emocional: não realiza diagnóstico, não constitui tratamento e não substitui acompanhamento psicoterapêutico profissional.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.nav button'));
+  var screens = Array.prototype.slice.call(document.querySelectorAll('.screen'));
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.caption .step'));
+
+  function go(id){
+    screens.forEach(function(s){ s.classList.toggle('is-on', s.id === id); });
+    tabs.forEach(function(t){ t.setAttribute('aria-selected', String(t.dataset.go === id)); });
+    steps.forEach(function(s){ s.classList.toggle('is-on', s.dataset.for === id); });
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ go(t.dataset.go); }); });
+
+  // chips e opções respondem ao toque, para a demo parecer viva
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('.chip, .opt');
+    if(!el) return;
+    var row = el.parentElement;
+    var multi = row && row.querySelectorAll('.chip').length > 4;
+    if (el.classList.contains('opt') || !multi) {
+      Array.prototype.forEach.call(row.children, function(sib){
+        if (sib.hasAttribute('aria-pressed')) sib.setAttribute('aria-pressed','false');
+      });
+    }
+    el.setAttribute('aria-pressed', el.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+  });
+})();
+</script>
+</body>
+</html>
